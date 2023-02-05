@@ -56,7 +56,7 @@ with t1:
 
         ad_det=st.radio(
             "Additional details",
-            ('earnings','borrowed','permanaent expense','gave as debt'))
+            ('slary','borrowed','permanaent expense','gave as debt','savings','food','travel'))
 
         amount = st.text_input('amount', 0)
 
@@ -78,5 +78,22 @@ with t1:
 with t2:
     st.markdown('he he')
     df=dfr()
-    st.dataframe(df)
+    #st.dataframe(df)
+    net=df.groupby('expense_type').sum().reset_index()
+    exp=int(net[net['expense_type']=='expense']['amount'])
+    inc=int(net[net['expense_type']=='income']['amount'])
+    bal=exp-inc
+    col1, col2, col3 = st.columns(3)
+    col1.metric("income",inc )
+    col2.metric("expense",exp )
+    col3.metric("Balance", bal)
+
+    fig=px.pie(df, values='amount', names='expense_type', title='Income vs expense')
+    st.plotly_chart(fig, theme=None, use_container_width=True)
+
+    edf=df[df['expense_type']=='expense']
+    echart=px.bar(edf,x='ad_det',y='amount', title='Expese chart')
+    st.plotly_chart(echart, theme=None, use_container_width=True)
+
+
 
