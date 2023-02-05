@@ -48,7 +48,9 @@ with t1:
 
         notes= st.text_input('Notes','food from hsr kitchen')
 
-        lst=[details,trans_type,ad_det,amount,notes]
+        d = st.date_input( "date",    datetime.date(2023, 2, 2))
+
+        lst=[details,trans_type,ad_det,amount,notes,d]
 
         submit = st.form_submit_button(label='Submit')
 
