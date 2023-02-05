@@ -82,7 +82,7 @@ with t2:
     net=df.groupby('expense_type').sum().reset_index()
     exp=int(net[net['expense_type']=='expense']['amount'])
     inc=int(net[net['expense_type']=='income']['amount'])
-    bal=exp-inc
+    bal=inc-exp
     col1, col2, col3 = st.columns(3)
     col1.metric("income",inc )
     col2.metric("expense",exp )
