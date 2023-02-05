@@ -54,7 +54,7 @@ with t1:
 
         if submit==True:
             registration(lst)
-            st.success(str(name)+' Successfully registered for ' + str(items))
+            st.success(' Successfully submitted ')
 
 with t2:
     st.markdown('he he')
