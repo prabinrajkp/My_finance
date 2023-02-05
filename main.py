@@ -39,7 +39,7 @@ def dfr():
 	gc = gs.service_account(filename='data.json')
 	os.remove('data.json')
 	sh = gc.open_by_url(st.secrets['reg'])
-	ws = sh.worksheet('Sheet2')
+	ws = sh.worksheet('Sheet1')
 	df = pd.DataFrame(ws.get_all_records())
 	
 	return df
