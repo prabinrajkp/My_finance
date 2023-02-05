@@ -50,7 +50,7 @@ with t1:
         notes= st.text_input('Notes','food from hsr kitchen')
 
         d = st.date_input( "date",    datetime.date(2023, 2, 2))
-	d=str(d)
+        d=str(d)
 
         lst=[details,trans_type,ad_det,amount,notes,d]
 
