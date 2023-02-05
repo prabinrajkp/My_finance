@@ -30,7 +30,7 @@ def registration(lst):
 	ws.insert_row(lst,2)
 
 
-def dataframe():
+def dfr():
 	j=st.secrets['js']
 	res = json.loads(j)
 	with open('data.json', 'w') as f:
@@ -77,6 +77,6 @@ with t1:
 
 with t2:
     st.markdown('he he')
-    df=dataframe()
+    df=dfr()
     st.dataframe(df)
 
