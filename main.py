@@ -116,9 +116,13 @@ with t2:
     if month == "all":
         df = dfr()
     else:
-        mid = mdict[month]
-        df[["year", "month", "date"]] = df["date"].str.split("-", expand=True)
-        df = df[df["month"] == mid]
+        try:
+            mid = mdict[month]
+            df[["year", "month", "date"]] = df["date"].str.split("-", expand=True)
+            df = df[df["month"] == mid]
+        except:
+            df = dfr()
+            st.error("Not enough data for month : ", month)
 
     # st.dataframe(df)
     net = df.groupby("expense_type").sum().reset_index()
