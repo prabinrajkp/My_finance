@@ -80,11 +80,13 @@ with t2:
     net = df.groupby("expense_type").sum().reset_index()
     exp = int(net[net["expense_type"] == "expense"]["amount"])
     inc = int(net[net["expense_type"] == "income"]["amount"])
+    net_inc = inc - df[df["ad_det"] == "borrowed"]["amount"].sum()
     bal = inc - exp
-    col1, col2, col3 = st.columns(3)
-    col1.metric("income", inc)
+    col1, col2, col3 , col4 = st.columns(4)
+    col1.metric("net income", net_inc)
     col2.metric("expense", exp)
     col3.metric("Balance", bal)
+    col4.metric("Gross income", inc)
 
     fig = px.pie(df, values="amount", names="expense_type", title="Income vs expense")
     st.plotly_chart(fig, theme=None, use_container_width=True)
