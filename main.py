@@ -122,7 +122,7 @@ with t2:
         lst = list(df['month'].unique())
         if len(lst) != 1:
             df = dfr()
-            st.error('Not enough data in the month : ', month)
+            st.error('Not enough data in the month')
     net = df.groupby("expense_type").sum().reset_index()
     exp = int(net[net["expense_type"] == "expense"]["amount"])
     inc = int(net[net["expense_type"] == "income"]["amount"])
