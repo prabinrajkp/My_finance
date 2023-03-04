@@ -4,8 +4,10 @@ import gspread as gs
 import json
 import os
 import plotly.express as px
+
 # import plotly.graph_objs as go
 from datetime import date
+
 st.markdown("# Prabin's Finance")
 
 
@@ -52,7 +54,8 @@ with t1:
                 "savings",
                 "food",
                 "travel",
-                "rent"
+                "rent",
+                "investment",
             ),
         )
 
@@ -69,20 +72,61 @@ with t1:
 
         submit = st.form_submit_button(label="Submit")
 
-        if submit :
+        if submit:
             registration(lst)
             st.success(" Successfully submitted ")
 
 with t2:
-    st.markdown("he he")
+    st.markdown("Finace at a glance")
     df = dfr()
+    mdict = {
+        "jan": "01",
+        "feb": "02",
+        "mar": "03",
+        "apr": "04",
+        "may": "05",
+        "jun": "06",
+        "jul": "07",
+        "aug": "08",
+        "sep": "09",
+        "oct": "10",
+        "nov": "11",
+        "dec": "12",
+        "all": "00",
+    }
+    month = st.selectbox(
+        "Select month to see month_wise",
+        (
+            "all",
+            "jan",
+            "feb",
+            "mar",
+            "apr",
+            "may",
+            "jun",
+            "jul",
+            "aug",
+            "sep",
+            "oct",
+            "nov",
+            "dec",
+        ),
+    )
+
+    if month == "all":
+        df = dfr()
+    else:
+        mid = mdict[month]
+        df[["year", "month", "date"]] = df["date"].str.split("-", expand=True)
+        df = df[df["month"] == mid]
+
     # st.dataframe(df)
     net = df.groupby("expense_type").sum().reset_index()
     exp = int(net[net["expense_type"] == "expense"]["amount"])
     inc = int(net[net["expense_type"] == "income"]["amount"])
     net_inc = inc - df[df["ad_det"] == "borrowed"]["amount"].sum()
     bal = inc - exp
-    col1, col2, col3 , col4 = st.columns(4)
+    col1, col2, col3, col4 = st.columns(4)
     col1.metric("net income", net_inc)
     col2.metric("expense", exp)
     col3.metric("Balance", bal)
